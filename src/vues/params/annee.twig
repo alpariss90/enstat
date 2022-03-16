@@ -1,0 +1,67 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+
+<br>
+<h2>GESTION DES ANNEES</h2>
+<br>
+<br>
+
+<!--
+<div class="alert alert-success">
+  <strong> Modification de l'enseignant : {{ enseignant.nom }}--{{ enseignant.prenom }}</strong> 
+</div>
+-->
+
+
+ <div class="row">
+    <div class="col-sm-5">
+<div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">Modification année active</div>
+  <div class="card-body">
+<form method="post" action="/params/annee.php">
+ 
+  <div class="mb-3">
+  <table border="0" class="table">
+  {% for a in annees %}
+    <tr>
+        <td>{{a.libelle}}--{{a.valeur}}  &nbsp;&nbsp;&nbsp;{% if a.etat %}<spam style="background-color: green">ACTIVE</spam>{% endif %}
+        </td><td><input type="radio" name="annee" {% if a.etat %} checked {% endif %} value="{{a.valeur}}" required/></td>
+    </tr>
+    {% endfor %}
+  </table>
+   <label for="" class="form-label">{{a.libelle}}</label>
+   <input type="radio" class="form-control">
+   
+ </div>
+
+<button type="submit" class="btn btn-primary" style="float: right">CHANGER</button>
+
+
+</form>
+  </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+    
+{% endblock %} 

@@ -1,0 +1,174 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+
+<!--
+<div class='row'>
+<div class="input-group mb-3">
+<form id='search' name='search' action='/users/search' method='GET'>
+</form>
+  <input type="text" class="form-control-sm" 
+  placeholder="Rechercher par nom, prenom, login, division ou profil" 
+  form='search' name='filtre' autocomplete="off"
+ >
+  <button class="btn btn-primary" type="submit" id="button-addon2" form='search'>
+<i class="fa fa-search"></i>
+</button>
+</div>
+</div>
+-->
+<br>
+<h2>GESTION DES UTILISATEURS</h2>
+<br>
+<br>
+ <div class="row">
+    <div class="col-sm-4">
+<div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">Formualaire ajout utilisateur</div>
+  <div class="card-body">
+<form method="post" action="/users/save">
+ <div class="mb-3">
+   <label for="" class="form-label">Login</label>
+   <input type="text"
+     class="form-control form-control-lg" name="login" id="login"  placeholder="Entrer le login" autocomplete="off" required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Nom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="nom" id="nom"  placeholder="Entrer le nom" autocomplete="off" required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Prenom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="prenom" id="prenom"  placeholder="Entrer le prenom" autocomplete="off" required>
+ </div>
+
+ <div class="mb-3">
+   <label for="" class="form-label">Division</label>
+   <select class="form-control form-control-lg" name="division" id="division" required>
+     <option value="">Selectionnez une division</option>
+     <option value="div1">Div 1</option>
+     <option value="div2">Div 1</option>
+     <option value="div3">Div 1</option>
+   </select>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Profil</label>
+   <select class="form-control form-control-lg" name="profil" id="profil" required>
+     <option value="">Selectionnez un profil</option>
+     <option value="admin">Admin</option>
+     <option value="pro2">Div 1</option>
+     <option value="pro3">Div 1</option>
+   </select>
+ </div>
+
+<button type="reset" class="btn btn-danger">VIDER</button>
+<button type="submit" class="btn btn-primary" style="float: right">AJOUTER</button>
+
+
+</form>
+  </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="col-sm-8">
+<div class="card">
+  <div class="card-header bg-warning" style="font-size: 25px">Liste des utilisateurs</div>
+  <div class="card-body">
+ <table class="table table-bordered" id="dTable" >
+    <thead>
+      <tr>
+        <th>LOGIN</th>
+        <th>NOM & PRENOM</th>
+        <th>DIVISION</th>
+        <th>PROFIL</th>
+        <th>STATUS</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for p in users %}
+       <tr>
+        <td>{{p.login}}</td>
+        <td>{{p.nom}} -- {{p.prenom}}</td>
+        <td>{{p.division}}</td>
+        <td>{{p.profil}}</td>
+        <td>
+        {% if p.active %}
+        <spam style="background-color: green; font-size: 25px">ACTIVE</spam>
+        {% else %}
+        <spam style="background-color: red; font-size: 25px">DESACTIVE</spam>
+        {% endif %}
+          </td>
+        <td>
+        <a href="/users/form-edit.php/{{ p.login }}" class="btn btn-outline-primary btn-md">
+          <i class="fa fa-edit"></i>
+        </a>
+         {% if p.active %}
+        <a href="/users/change-etat.php/{{ p.login }}" class="btn btn-danger btn-md" onClick="return window.confirm('Etes-vous sûre de vouloir changé etat ')">
+          <i class="fa fa-lock"></i>
+        </a>
+        {%else%}
+        <a href="/users/change-etat.php/{{ p.login }}" class="btn btn-success btn-md" onClick="return window.confirm('Etes-vous sûre de vouloir changé etat ')">
+           <i class="fa fa-unlock" ></i>
+        {% endif %}
+        </a>
+        <a href="/users/init.php/{{ p.login }}" class="btn btn-outline-success btn-md" onClick="return window.confirm('Etes-vous sûre de vouloir reinitialiser le mot de passe')">
+          <i class="fa fa-key"></i>
+        </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  
+  </div>
+
+</div>
+    </div>
+
+    
+</div>
+
+
+    
+{% endblock %} 
+
+
+{% block js %}
+<script>
+$(document).ready(function() {
+  $('#dTable').DataTable( {
+        "language": {
+            "url": "http://localhost:4000/dt/French.json"
+        }
+    } );
+} );
+</script>
+{% endblock %}

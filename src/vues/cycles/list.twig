@@ -1,0 +1,114 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+
+
+<br>
+<h2>GESTION DES CYCLES</h2>
+<br>
+<br>
+ <div class="row">
+    <div class="col-sm-12">
+<div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">Liste des cycles</div>
+  <div class="card-body">
+        <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+        <th>DUREE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for c in cycles %}
+       <tr>
+        <td>{{c.libelle}}</td>
+        <td>{{c.duree}} ans</td>
+        <td style="text-align: right">
+        <a href="/cycle/list.php/{{ c.id }}" class="btn btn-outline-primary btn-md">
+          Détail cycles
+        </a>
+       
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+</div>
+    </div>
+</div>
+
+<br><br>
+
+{% if cycleDetails|length > 0 %}
+
+<div class="row">
+    <div class="col-sm-12">
+<div class="card">
+  <div class="card-header bg-warning" style="font-size: 25px">Détails {{cycle.libelle}}</div>
+  <div class="card-body">
+ <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for cd in cycleDetails %}
+       <tr>
+        <td>{{cd.libelle}}</td>
+        <td style="text-align: right">
+        <a href="/cycle/list-UE.php/{{ u.id }}" class="btn btn-outline-primary btn-md">
+          UE
+        </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  
+  </div>
+
+</div>
+    </div>
+
+    
+</div>
+{% endif %}
+</div>
+
+
+    
+{% endblock %} 
+
+
+{% block js %}
+<script>
+$(document).ready(function() {
+  $('#dTable').DataTable( {
+        "language": {
+            "url": "http://localhost:4000/dt/French.json"
+        }
+    } );
+} );
+</script>
+{% endblock %}

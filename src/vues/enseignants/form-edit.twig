@@ -1,0 +1,82 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+<br>
+<h2>GESTION DES ENSEIGNANTS</h2>
+<br>
+<br>
+
+
+<div class="alert alert-success">
+  <strong> Modification de l'enseignant : {{ enseignant.nom }}--{{ enseignant.prenom }}</strong> 
+</div>
+
+
+<!--
+<div class='row'>
+<div class="input-group mb-3">
+<form id='search' name='search' action='/users/search' method='GET'>
+</form>
+  <input type="text" class="form-control-sm" 
+  placeholder="Rechercher par nom, prenom, login, division ou profil" 
+  form='search' name='filtre' autocomplete="off"
+ >
+  <button class="btn btn-primary" type="submit" id="button-addon2" form='search'>
+<i class="fa fa-search"></i>
+</button>
+</div>
+</div>
+-->
+
+ <div class="row">
+    <div class="col-sm-5">
+<div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">Modification enseignant</div>
+  <div class="card-body">
+<form method="post" action="/enseignant/edit">
+ 
+  <div class="mb-3">
+   <label for="" class="form-label">Nom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="nom" id="nom"  value="{{enseignant.nom}}" autocomplete="off" required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Prenom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="prenom" id="prenom"  value="{{enseignant.prenom}}" autocomplete="off" required>
+ </div>
+
+   <div class="mb-3">
+   <label for="" class="form-label">Âge</label>
+   <input type="number"
+     class="form-control form-control-lg" name="age" id="age"  value="{{enseignant.age}}" autocomplete="off" required>
+ </div>
+  <div class="mb-3">
+   <label for="" class="form-label">Diplôme</label>
+   <input type="text"
+     class="form-control form-control-lg" name="diplome" id="diplome"  value="{{enseignant.diplome}}" autocomplete="off" required>
+ </div>
+
+
+<a href="/enseignant/list.php" class="btn btn-danger">RETOUR</a>
+<button type="submit" class="btn btn-primary" style="float: right">MODIFIER</button>
+
+
+</form>
+  </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+    
+{% endblock %} 

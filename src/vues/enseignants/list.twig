@@ -1,0 +1,122 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+
+<br>
+<h2>GESTION DES ENSEIGNANTS</h2>
+<br>
+<br>
+ <div class="row">
+    <div class="col-sm-4">
+<div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">Formulaire ajout enseignant</div>
+  <div class="card-body">
+<form method="post" action="/enseignant/save">
+
+
+  <div class="mb-3">
+   <label for="" class="form-label">Nom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="nom" id="nom"  placeholder="Entrer le nom de l'enseignant" autocomplete="off" required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Prenom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="prenom" id="prenom"  placeholder="Entrer le prenom de l'enseignant" autocomplete="off" required>
+ </div>
+
+   <div class="mb-3">
+   <label for="" class="form-label">Âge</label>
+   <input type="number"
+     class="form-control form-control-lg" name="age" id="age"  placeholder="Entrer l'âge de l'enseignant" autocomplete="off" required>
+ </div>
+  <div class="mb-3">
+   <label for="" class="form-label">Diplôme</label>
+   <input type="text"
+     class="form-control form-control-lg" name="diplome" id="diplome"  placeholder="Entrer le diplôme de l'enseignant" autocomplete="off" required>
+ </div>
+
+<button type="reset" class="btn btn-danger">VIDER</button>
+<button type="submit" class="btn btn-primary" style="float: right">AJOUTER</button>
+
+
+</form>
+  </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="col-sm-8">
+<div class="card">
+  <div class="card-header bg-warning" style="font-size: 25px">Liste des enseignants</div>
+  <div class="card-body">
+ <table class="table table-bordered" id="dTable">
+    <thead>
+      <tr>
+        <th>NOM & PRENOM</th>
+        <th>DIPLOME</th>
+        <th>AGE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for p in enseignants %}
+       <tr>
+        <td>{{p.nom}} -- {{p.prenom}}</td>
+        <td>{{p.diplome}}</td>
+        <td>{{p.age}} ans</td>
+        <td>
+        <a href="/enseignant/form-edit.php/{{ p.id }}" class="btn btn-outline-primary btn-md">
+          <i class="fa fa-edit"></i>
+        </a>
+       
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  
+  </div>
+
+</div>
+    </div>
+
+    
+</div>
+    
+{% endblock %} 
+
+{% block js %}
+<script>
+$(document).ready(function() {
+  $('#dTable').DataTable( {
+        "language": {
+            "url": "http://localhost:4000/dt/French.json"
+        }
+    } );
+} );
+</script>
+{% endblock %}

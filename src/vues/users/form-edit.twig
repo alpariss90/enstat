@@ -1,0 +1,96 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+
+<br>
+<h2>GESTION DES UTILISATEURS</h2>
+<br>
+<br>
+
+
+<div class="alert alert-success">
+  <strong> Modification de l'utilisateur : {{ user.login }}</strong> 
+</div>
+
+
+<!--
+<div class='row'>
+<div class="input-group mb-3">
+<form id='search' name='search' action='/users/search' method='GET'>
+</form>
+  <input type="text" class="form-control-sm" 
+  placeholder="Rechercher par nom, prenom, login, division ou profil" 
+  form='search' name='filtre' autocomplete="off"
+ >
+  <button class="btn btn-primary" type="submit" id="button-addon2" form='search'>
+<i class="fa fa-search"></i>
+</button>
+</div>
+</div>
+-->
+
+ <div class="row">
+    <div class="col-sm-5">
+<div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">Formualaire modification utilisateur</div>
+  <div class="card-body">
+<form method="post" action="/users/edit">
+ <div class="mb-3">
+   <label for="" class="form-label">Login</label>
+   <input type="text"
+     class="form-control form-control-lg" name="login" id="login"  placeholder="Entrer le login" autocomplete="off" value="{{user.login}}" readOnly required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Nom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="nom" id="nom"  placeholder="Entrer le nom" autocomplete="off" value="{{user.nom}}" required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Prenom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="prenom" id="prenom"  placeholder="Entrer le prenom" autocomplete="off" value="{{user.prenom}}" required>
+ </div>
+
+ <div class="mb-3">
+   <label for="" class="form-label">Division</label>
+   <select class="form-control form-control-lg" name="division" id="division"  required>
+     <option value="">Selectionnez une division</option>
+     <option value="div1" {% if user.division=='div1' %} selected {% endif %}>Div 1</option>
+     <option value="div2" {% if user.division=='div2' %} selected {% endif %}>Div 1</option>
+     <option value="div3" {% if user.division=='div3' %} selected {% endif %}>Div 1</option>
+   </select>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Profil</label>
+   <select class="form-control form-control-lg" name="profil" id="profil" required>
+     <option value="">Selectionnez un profil</option>
+     <option value="admin" {% if user.profil=='admin' %} selected {% endif %}>Admin</option>
+     <option value="pro2" {% if  user.profil=='pro2' %} selected {% endif %}>Profil 1</option>
+     <option value="pro3" {% if user.profil=='pro3' %} selected {% endif %}>Profil 2</option>
+   </select>
+ </div>
+
+<a href="/users/list.php" class="btn btn-danger">RETOUR</a>
+<button type="submit" class="btn btn-primary" style="float: right">MODIFIER</button>
+
+
+</form>
+  </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+    
+{% endblock %} 
