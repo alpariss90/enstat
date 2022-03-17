@@ -20,9 +20,9 @@ router.post('/save', function(req, res){
         return res.redirect('/enseignant/list.php')
     }
 
-    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome);
+    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome,0);
 
-    enseignant.who_done=req.session.user.login;
+    enseignant.who_done="test"//req.session.user.login;
     enseignant.when_done=new Date();
 
     const rs=enseignantService.add(enseignant);
@@ -37,12 +37,13 @@ router.post('/save', function(req, res){
 });
 
 router.post('/edit', function(req, res){
-    const {nom,prenom,age,diplome}=req.body;
+    const {nom,prenom,age,diplome,id}=req.body;
 
+    
+    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome,id);
 
-    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome);
-
-    enseignant.who_done=req.session.user.login;
+   
+    enseignant.who_done="test"//req.session.user.login;
     enseignant.when_done=new Date();
 
     const rs=enseignantService.edit(enseignant);

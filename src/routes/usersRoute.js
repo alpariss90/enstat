@@ -22,7 +22,7 @@ router.post('/save', function(req, res){
 
     var user=usersService.mapUser(nom,prenom,login,division,profil);
 
-    user.who_done=req.session.user.login;
+    user.who_done="test"//req.session.user.login;
     user.when_done=new Date();
 
     const rs=usersService.add(user);
@@ -42,7 +42,7 @@ router.post('/edit', function(req, res){
 
     var user=usersService.mapUser(nom,prenom,login,division,profil);
 
-    user.who_done=req.session.user.login;
+    user.who_done="test"//req.session.user.login;
     user.when_done=new Date();
 
     const rs=usersService.edit(user);

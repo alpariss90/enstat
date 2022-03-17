@@ -42,29 +42,31 @@
  <div class="mb-3">
    <label for="" class="form-label">Login</label>
    <input type="text"
-     class="form-control form-control-lg" name="login" id="login"  placeholder="Entrer le login" autocomplete="off" value="{{user.login}}" readOnly required>
+     class="form-control form-control-lg" name="login" id="login"   autocomplete="off" value="{{user.login}}" readOnly required>
  </div>
+
+
 
   <div class="mb-3">
    <label for="" class="form-label">Nom</label>
    <input type="text"
-     class="form-control form-control-lg" name="nom" id="nom"  placeholder="Entrer le nom" autocomplete="off" value="{{user.nom}}" required>
+     class="form-control form-control-lg" name="nom" id="nom"   autocomplete="off" value="{{user.nom}}" required>
  </div>
 
   <div class="mb-3">
    <label for="" class="form-label">Prenom</label>
    <input type="text"
-     class="form-control form-control-lg" name="prenom" id="prenom"  placeholder="Entrer le prenom" autocomplete="off" value="{{user.prenom}}" required>
+     class="form-control form-control-lg" name="prenom" id="prenom"   autocomplete="off" value="{{user.prenom}}" required>
  </div>
 
  <div class="mb-3">
    <label for="" class="form-label">Division</label>
    <select class="form-control form-control-lg" name="division" id="division"  required>
-     <option value="">Selectionnez une division</option>
-     <option value="div1" {% if user.division=='div1' %} selected {% endif %}>Div 1</option>
-     <option value="div2" {% if user.division=='div2' %} selected {% endif %}>Div 1</option>
-     <option value="div3" {% if user.division=='div3' %} selected {% endif %}>Div 1</option>
-   </select>
+      <option value="">Selectionnez une division</option>
+     <option value="DFSS" {% if user.division=='DFSS' %} selected {% endif %}>Département de la Formation Supérieure en Statistique (DFSS)</option>
+     <option value="DAFD" {% if user.division=='DAFD' %} selected {% endif %}>Département del’Administration, des Finances et de la Documentation (DAFD)</option>
+     <option value="DPSI" {% if user.division=='DPSI' %} selected {% endif %}>Département de Perfectionnement en Statistique et en Informatique (DPSI)</option>
+     </select>
  </div>
 
   <div class="mb-3">

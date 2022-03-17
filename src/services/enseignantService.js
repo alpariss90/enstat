@@ -32,6 +32,7 @@ module.exports={
     },
     edit:   function(enseignant){
         ret=null;
+       
             pool.query(
             "update enseignant set nom=$1, prenom=$2, age=$3, diplome=$4, who_done=$5, when_done=$6 where id=$7",
             [ enseignant.nom, enseignant.prenom, enseignant.age, enseignant.diplome, enseignant.who_done, enseignant.when_done, enseignant.id],
@@ -42,12 +43,13 @@ module.exports={
              deasync.runLoopOnce()
     return ret;
     },
-    mapEnseignant : function(nom, prenom, age, diplome){
+    mapEnseignant : function(nom, prenom, age, diplome, id){
         var enseignant={
             nom: nom,
             prenom: prenom,
             age: age,
-            diplome: diplome
+            diplome: diplome,
+            id: id
         }
         return enseignant;
     },

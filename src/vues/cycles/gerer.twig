@@ -1,0 +1,157 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+
+
+<br>
+<h2>GESTION DE  {{cycleDetail.libelle}}</h2>
+<h4 style="color: red">ANNEE ACTIVE: {{annee}}</h4>
+<br>
+<br>
+
+
+<div class="row">
+
+
+
+
+  <div class="col-sm-3">
+    <div class="col-sm-12">
+
+
+      <div class="card">
+  <div class="card-header bg-success" style="font-size: 25px">SEMESTRES</div>
+  <div class="card-body">
+        <table class="table table-bordered" style="font-size: 20px">
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody >
+        {% for u in semestres %}
+       <tr>
+        <td>{{u.libelle}}</td>
+        <td>
+        <input type="radio" name="semestre" form="fgerer" value="{{u.id}}" required>
+        </td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+
+    </div>
+    <br>
+    <div class="col-sm-12">
+
+
+      <div class="card">
+  <div class="card-header bg-warning" style="font-size: 25px">UNITES ENSEIGNEMENTS</div>
+  <div class="card-body">
+        <table class="table table-bordered" style="font-size: 20px">
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for u in ues %}
+       <tr>
+        <td>{{u.libelle}}</td>
+        <td>
+        <input type="radio" name="ue" form="fgerer"value="{{u.code}}" required>
+        </td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
+    <div class="col-sm-1">
+    <input type="hidden" value="{{cycleDetail.id}}" name="idDetailCycle" form="fgerer">
+    <a href="/cycle/list.php/{{cycleDetail.id}}" class="btn btn-danger btn-block" >RETOUR</a><br><br>
+      <a href="" class="btn btn-danger btn-block" onClick="return window.confirm('Etes vous sure de vouloir vider les donnees???')">VIDER</a><br><br>
+<button type="submit" class="btn btn-primary btn-block" form="fgerer">VALIDER</button>
+
+    </div>
+  <div class="col-sm-8">
+
+
+
+
+      <div class="card">
+  <div class="card-header bg-primary" style="font-size: 25px">MODULES</div>
+  <div class="card-body">
+        <table class="table table-bordered" style="font-size: 20px" id="dTable">
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for u in modules %}
+       <tr>
+        <td>{{u.libelle}}</td>
+         <td>
+        <input type="checkbox" name="module" form="fgerer" value="{{u.id}}">
+        </td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+
+
+  </div>
+<div>
+
+
+<form action="/cycle/gerer.php" method="post" id="fgerer" name="fgerer">
+
+</form>
+
+
+
+    
+{% endblock %} 
+
+
+{% block js %}
+<script>
+$(document).ready(function() {
+  $('#dTable').DataTable( {
+        "language": {
+            "url": "http://localhost:4000/dt/French.json"
+        }
+    } );
+} );
+</script>
+{% endblock %}
