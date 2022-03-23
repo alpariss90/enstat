@@ -18,6 +18,45 @@ module.exports={
             deasync.runLoopOnce();
         return ret.result;
     },
+    listModuleEnseignerByEnseignant: function(idEnseignant, annee){
+        ret=null;
+        pool.query(
+            'select * from v_cycle_module where module  in (select module from enseignant_module where enseignant=$1 and annee=$2)',
+            [idEnseignant, annee],
+            (err, result)=>{
+                ret={result: result}
+            }
+        );
+        while(ret==null)
+            deasync.runLoopOnce();
+        return ret.result;
+    },
+    getModuleDispoForEnseignant: function( annee){
+        ret=null;
+        pool.query(
+            'select * from v_cycle_module where module not in (select module from enseignant_module where annee=$1)',
+            [ annee],
+            (err, result)=>{
+                ret={result: result}
+            }
+        );
+        while(ret==null)
+            deasync.runLoopOnce();
+        return ret.result;
+    },
+    getNbreModuleByCycle: function(){
+        ret=null;
+        pool.query(
+            'select libelle_cycle as cycle, count(libelle_module) as nbre from v_cycle_module group by libelle_cycle order by libelle_cycle',
+            [],
+            (err, result)=>{
+                ret={result: result}
+            }
+        );
+        while(ret==null)
+            deasync.runLoopOnce();
+        return ret.result;
+    },
     add: function(enseignant){
         ret=null;
             pool.query(
@@ -43,6 +82,18 @@ module.exports={
              deasync.runLoopOnce()
     return ret;
     },
+    deleteModuleEnseignant: function(module, enseignant, annee){
+        ret=null;
+            pool.query(
+            "delete from enseignant_module where enseignant=$1 and module=$2 and annee=$3",
+            [enseignant, module, annee],
+            function(err, rs){
+                ret={err: err, result: 'Suppression faite avec success'};         
+            });
+            while(ret==null)
+             deasync.runLoopOnce()
+    return ret;
+    },
     mapEnseignant : function(nom, prenom, age, diplome, id){
         var enseignant={
             nom: nom,
@@ -60,5 +111,39 @@ module.exports={
     getById: function(id){
         var enseignant =this.list().rows.filter(e=>e.id==id);
         return enseignant;
+    },
+    mapEnseignantModule: function(annee, enseignant, modules, whoDone){
+       var enseignantModules=[];
+        
+       for(var i=0; i< modules.length; i++){
+        var enseignantModule={
+            annee: annee,
+            enseignant: enseignant,
+            module: modules[i],
+            who_done: whoDone,
+            when_done: new Date()
+        };
+
+        enseignantModules.push(enseignantModule);
+       }
+        
+        return enseignantModules;
+    },
+    addEnseignantModules: function(enseignantModules){
+        let ret=null;
+
+        enseignantModules.forEach((e, index)=>{
+                pool.query(
+                            'insert into enseignant_module (enseignant,annee,module,who_done,when_done) values ($1,$2,$3,$4,$5)',
+                            [e.enseignant, e.annee, e.module, e.who_done, e.when_done],
+                            (err, result)=>{
+                               ret={err: err, result: "Insertion Faite avec suceess"};     
+                            });
+        });
+
+        while(ret==null)
+            deasync.runLoopOnce();
+        return ret;
+        
     }
 };

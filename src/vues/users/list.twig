@@ -39,7 +39,7 @@
  <div class="row">
     <div class="col-sm-4">
 <div class="card">
-  <div class="card-header bg-success" style="font-size: 25px">Formualaire ajout utilisateur</div>
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Formualaire ajout utilisateur</div>
   <div class="card-body">
 <form method="post" action="/users/save">
  <div class="mb-3">
@@ -75,13 +75,11 @@
    <select class="form-control form-control-lg" name="profil" id="profil" required>
      <option value="">Selectionnez un profil</option>
      <option value="admin">Admin</option>
-     <option value="pro2">Div 1</option>
-     <option value="pro3">Div 1</option>
    </select>
  </div>
 
 <button type="reset" class="btn btn-danger">VIDER</button>
-<button type="submit" class="btn btn-primary" style="float: right">AJOUTER</button>
+<button type="submit" class="btn btn-success" style="float: right">AJOUTER</button>
 
 
 </form>
@@ -99,7 +97,7 @@
 
     <div class="col-sm-8">
 <div class="card">
-  <div class="card-header bg-warning" style="font-size: 25px">Liste des utilisateurs</div>
+  <div class="card-header" style="font-size: 25px; background-color: #323030; color: white">Liste des utilisateurs</div>
   <div class="card-body">
  <table class="table table-bordered" id="dTable" >
     <thead>

@@ -19,12 +19,37 @@
 
 
 <br>
-<h2>LES CYCLES</h2>
-
+<h2>GESTION DES UNITES D'ENSEIGNEMENTS</h2>
+<h4 style="color: red">ANNEE ACTIVE: {{annee}}</h4>
 <br>
 <br>
  <div class="row">
     <div class="col-sm-12">
+<div class="card">
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Liste</div>
+  <div class="card-body">
+        <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for u in cycles %}
+       <tr>
+        <td>{{u.libelle}}</td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+</div>
+    </div>
+
+
+<!--
+    <div class="col-sm-6">
 <div class="card">
   <div class="card-header" style="font-size: 25px; background-color: #FF9200">Liste des cycles</div>
   <div class="card-body">
@@ -42,28 +67,9 @@
         <td>{{c.libelle}}</td>
         <td>{{c.duree}} ans</td>
         <td style="text-align: right">
-
-           <a href="/cycle/detail.php/{{ c.id }}/1" class="btn btn-outline-success btn-md">
-           S1
-        </a>
-        {% if c.duree==2 %}
-           <a href="/cycle/detail.php/{{ c.id }}/2" class="btn btn-outline-success btn-md">
-           S2
-        </a>
-        <a href="/cycle/detail.php/{{ c.id }}/3" class="btn btn-outline-success btn-md">
-           S3
-        </a>
-        <a href="/cycle/detail.php/{{ c.id }}/5" class="btn btn-outline-success btn-md">
-           S4 (AGRICOLE)
-        </a>
-                <a href="/cycle/detail.php/{{ c.id }}/6" class="btn btn-outline-success btn-md">
-           S4 (EDUCATION)
-        </a>
-        {% endif %}
-        <!--<a href="/cycle/list.php/{{ c.id }}" class="btn btn-outline-primary btn-md">
+        <a href="/cycle/list.php/{{ c.id }}" class="btn btn-outline-primary btn-md">
           Détail cycles
         </a>
-        -->
        
         </td>
       </tr>
@@ -77,13 +83,13 @@
 </div>
 
 <br><br>
-<!--
+
 {% if cycleDetails|length > 0 %}
 
 <div class="row">
     <div class="col-sm-12">
 <div class="card">
-  <div class="card-header" style="font-size: 25px;background-color: #323030; color: white">Détails {{cycle.libelle}}</div>
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Détails {{cycle.libelle}}</div>
   <div class="card-body">
  <table class="table table-bordered" >
     <thead>
@@ -97,16 +103,9 @@
        <tr>
         <td>{{cd.libelle}}</td>
         <td style="text-align: right">
-        <a href="/cycle/gerer.php/{{ cd.id }}/1" class="btn btn-outline-success btn-md">
-          GERER S1
+        <a href="/cycle/list.php/{{ c.id }}" class="btn btn-outline-primary btn-md">
+          UE
         </a>
-        {% if cd.cycle==1 %}
-           <a href="/cycle/gerer.php/{{ cd.id }}/2" class="btn btn-outline-success btn-md">
-          GERER S2
-        </a>
-        {% endif %}
-        
-      
         </td>
       </tr>
     {% endfor %}
@@ -121,10 +120,8 @@
     
 </div>
 {% endif %}
-
--->
 </div>
-
+-->
 
     
 {% endblock %} 

@@ -1,5 +1,6 @@
 var express=require('express');
 const enseignantService = require('../services/enseignantService');
+const paramsService=require('../services/paramsService');
 var router=express.Router();
 
 
@@ -64,6 +65,69 @@ router.get('/form-edit.php/:id', (req, res)=>{
     })
 });
 
+router.get('/affectation.php/:idEnseignant', (req,res)=>{
+    var enseignant=enseignantService.getById(req.params.idEnseignant).shift();
+    var annee=paramsService.getYearActive().rows.shift();
+    var idAnnee=annee.id;
+    var moduleDispo=enseignantService.getModuleDispoForEnseignant( idAnnee).rows;
+
+    return res.render('enseignants/affectation_module',{
+        annee: annee.valeur, enseignant: enseignant, modules: moduleDispo,
+        result: {error: req.flash('error'), success: req.flash('success')}
+    }) 
+
+});
+
+
+router.post('/affecter.php', function(req, res){
+    const {modules, enseignant}=req.body;
+    var annee=paramsService.getYearActive().rows.shift();
+    var idAnnee=annee.id;
+
+    if(modules == null){
+        req.flash('error', "Veuillez selectionner au moins un module!!!");
+           return res.redirect('/enseignant/affectation.php/'+enseignant);
+       }
+    who_done="test"; //session
+       enseignantModules=enseignantService.mapEnseignantModule(idAnnee, enseignant, modules, who_done);
+       console.log(enseignantModules);
+       var result=enseignantService.addEnseignantModules(enseignantModules);
+
+       if(!result.err)
+       req.flash('success', result.result);
+   else
+       req.flash('error', result.err);
+
+
+       return res.redirect('/enseignant/affectation.php/'+enseignant);
+
+});
+
+
+router.get('/list_enseigner.php/:idEnseignant', (req,res)=>{
+    var enseignant=enseignantService.getById(req.params.idEnseignant).shift();
+    var annee=paramsService.getYearActive().rows.shift();
+    var idAnnee=annee.id;
+    var moduleDispo=enseignantService.listModuleEnseignerByEnseignant( req.params.idEnseignant, idAnnee).rows;
+
+    return res.render('enseignants/list_enseigner',{
+        annee: annee.valeur, enseignant: enseignant, modules: moduleDispo,
+        result: {error: req.flash('error'), success: req.flash('success')}
+    }) 
+
+});
+
+router.get('/retirer.php/:idModule/:idEnseignant', (req,res)=>{
+   
+    var annee=paramsService.getYearActive().rows.shift().id;
+    var result=enseignantService.deleteModuleEnseignant(req.params.idModule, req.params.idEnseignant, annee);
+    if(!result.err)
+        req.flash('success', result.result);
+    else
+        req.flash('error', result.err);
+        return res.redirect('/enseignant/list_enseigner.php/'+req.params.idEnseignant);
+
+});
 
 
 

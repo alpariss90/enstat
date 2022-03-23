@@ -47,7 +47,7 @@ module.exports={
     listDetailCycle: function(){
         ret=null;
         pool.query(
-            'select * from detail_cycle',
+            'select * from detail_cycle order by cycle',
             [],
             (err, result)=>{
                 ret={result: result}
@@ -86,11 +86,56 @@ module.exports={
             deasync.runLoopOnce();
         return ret.result;
     },
+    getUEByCycleAndSemestre: function(cycle, semestre){
+        ret=null;
+        var req="";
+        var option;
+        if(semestre!=5 && semestre!=6){
+            var req="select * from v_unite_enseignement where cycle=$1 and semestre=$2 and option is null";
+        }else{
+            if(semestre==5)
+                option=1;
+            else
+                option=2;
+            cycle=1; semestre=4; 
+            var req="select * from v_unite_enseignement where (cycle=$1 and semestre=$2 and option is null) or (cycle=$1 and semestre=$2 and  option="+option+")"
+        }
+
+    
+
+        pool.query(
+            req,
+            [cycle, semestre],
+            (err, result)=>{
+                ret={result: result}
+            }
+        );
+        
+        
+
+        while(ret==null)
+            deasync.runLoopOnce();
+        return ret.result;
+    },
     getYearActive: function(){
         ret=null;
         pool.query(
             'select * from params where libelle=$1 and etat=true',
             ['ANNEE'],
+            (err, res)=>{
+                ret={result: res}
+            }
+        );
+        while(ret==null)
+            deasync.runLoopOnce();
+        
+        return ret.result;
+    },
+    getModulesByUE: function(idUE){
+        ret=null;
+        pool.query(
+            'select * from v_cycle_module where unite_enseignement=$1',
+            [idUE],
             (err, res)=>{
                 ret={result: res}
             }

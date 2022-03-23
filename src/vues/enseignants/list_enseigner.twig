@@ -1,0 +1,99 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+<input type="hidden" value="{{modules|json_encode}}" id="modules">
+<br>
+<h2>LISTE MODULES ENSEIGNE PAR ({{enseignant.nom}}--{{enseignant.prenom}})</h2>
+<h4 style="color: red">ANNEE ACTIVE: {{annee}}</h4>
+<br>
+<br>
+ <div class="row">
+<form action="/enseignant/affecter.php" method="post" form="faffecter" id="faffecter"></form>
+    <div class="col-sm-12">
+<div class="card">
+  <div class="card-header" style="font-size: 25px; background-color: #323030; color: white">MODULES</div>
+  <div class="card-body">
+ <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th>CYCLE</th>
+        <th>SEMESTRE</th>
+        <th>UE</th>
+        <th>MODULE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for m in modules %}
+       <tr>
+        <td>{{m.libelle_cycle}}</td>
+        <td>{{m.libelle_semestre}}</td>
+        <td>{{m.libelle_ue}}</td>
+        <td>{{m.libelle_module}}</td>
+        <td>
+      <a href="/enseignant/retirer.php/{{m.module}}/{{enseignant.id}}" class="btn btn-danger" style="align: left" onclick="return window.confirm('Êtes-vous sûre de vouloir retirer cet module à lenseignant ?')">
+        <spam class="fa fa-trash"></spam>
+      </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+ 
+  </div>
+
+</div>
+<br>
+ 
+    </div>
+<br>
+    
+  
+
+    </div>
+<div class="row">
+      <div class="col-sm-6">
+    <a href="/enseignant/list.php" class="btn btn-danger" style="align: left">Retour</a>
+      </div>
+      <div class="col-sm-6">
+       
+      </div>
+   </div>
+
+</div>
+     
+{% endblock %} 
+
+{% block js %}
+<script>
+$(document).ready(function() {
+ /*var modules = {{ modules |json_encode }};
+for(var i=0; i<modules.length; i++){
+console.log(modules[i].module);
+}
+
+*/
+
+  $('#dTable').DataTable( {
+        "language": {
+            "url": "http://localhost:4000/dt/French.json"
+        }
+    } );
+} );
+</script>
+{% endblock %}

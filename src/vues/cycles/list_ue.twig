@@ -19,25 +19,62 @@
 
 
 <br>
-<h2>GESTION DES UNITES D'ENSEIGNEMENTS</h2>
-<h4 style="color: red">ANNEE ACTIVE: {{annee}}</h4>
+<h2>LES UNITES D'ENSEIGNEMENTS</h2>
+<!-- <h4 style="color: red">ANNEE ACTIVE: {{annee}}</h4>-->
+<h4>{{ues[0].libelle_cycle}}</h4>
+<h5>{{ues[0].libelle_semestre}}</h5>
 <br>
 <br>
  <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-5 ">
 <div class="card">
-  <div class="card-header bg-success" style="font-size: 25px">Liste des cycles</div>
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Liste UE</div>
   <div class="card-body">
         <table class="table table-bordered">
     <thead>
       <tr>
         <th>LIBELLE</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
         {% for u in ues %}
        <tr>
-        <td>{{u.libelle}}</td>
+        <td>{{u.libelle_ue}}</td>
+        <td>
+                <a  class="btn btn-outline-success btn-md" onclick="getModules('{{u.id}}')">
+          Modules
+        </a>
+        </td>
+       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+</div>
+    </div>
+
+<input type="hidden" value="{{det}}" id='det'>
+
+
+
+<div class="col-sm-6 offset-sm-1">
+<div class="card">
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Liste modules</div>
+  <div class="card-body">
+        <table class="table table-bordered" style="font-size: 20px; ">
+    <thead>
+      <tr>
+        <th>LIBELLE</th>
+  
+      </tr>
+    </thead>
+    <tbody>
+        {% for m in modules %}
+       <tr>
+        <td>{{m.libelle_module}}</td>
+
        </tr>
     {% endfor %}
     </tbody>
@@ -49,79 +86,9 @@
 
 
 
-    <div class="col-sm-6">
-<div class="card">
-  <div class="card-header bg-success" style="font-size: 25px">Liste des cycles</div>
-  <div class="card-body">
-        <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>LIBELLE</th>
-        <th>DUREE</th>
-        <th>ACTIONS</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for c in cycles %}
-       <tr>
-        <td>{{c.libelle}}</td>
-        <td>{{c.duree}} ans</td>
-        <td style="text-align: right">
-        <a href="/cycle/list.php/{{ c.id }}" class="btn btn-outline-primary btn-md">
-          Détail cycles
-        </a>
-       
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-  </div>
+
 
 </div>
-    </div>
-</div>
-
-<br><br>
-
-{% if cycleDetails|length > 0 %}
-
-<div class="row">
-    <div class="col-sm-12">
-<div class="card">
-  <div class="card-header bg-warning" style="font-size: 25px">Détails {{cycle.libelle}}</div>
-  <div class="card-body">
- <table class="table table-bordered" >
-    <thead>
-      <tr>
-        <th>LIBELLE</th>
-        <th>ACTIONS</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for cd in cycleDetails %}
-       <tr>
-        <td>{{cd.libelle}}</td>
-        <td style="text-align: right">
-        <a href="/cycle/list.php/{{ c.id }}" class="btn btn-outline-primary btn-md">
-          UE
-        </a>
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-  
-  </div>
-
-</div>
-    </div>
-
-    
-</div>
-{% endif %}
-</div>
-
 
     
 {% endblock %} 
@@ -136,5 +103,19 @@ $(document).ready(function() {
         }
     } );
 } );
+
+
+function getModules(lib){
+  var det=document.getElementById('det').value;
+  if(det=='true'){
+    actuelle=window.location.href;
+    loc=actuelle.substring(0, actuelle.lastIndexOf('/'))+"/"+lib;
+  }
+    
+  else
+    loc=window.location.href+"/"+lib;
+  window.location.assign(loc)
+
+}
 </script>
 {% endblock %}

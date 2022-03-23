@@ -1,0 +1,90 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+{% if result.error|length > 0 %}
+<div class="alert alert-danger">
+  <strong>{{ result.error }}</strong> 
+</div>
+{% else %}
+  {% if result.success|length > 0 %}
+<div class="alert alert-success">
+  <strong>{{ result.success }}</strong> 
+</div>
+  {% endif %}
+{% endif %}
+
+<br>
+<h2>AFFECTATION MODULES ({{enseignant.nom}}--{{enseignant.prenom}})</h2>
+<h4 style="color: red">ANNEE ACTIVE: {{annee}}</h4>
+<br>
+<br>
+ <div class="row">
+<form action="/enseignant/affecter.php" method="post" form="faffecter" id="faffecter"></form>
+    <div class="col-sm-12">
+<div class="card">
+  <div class="card-header" style="font-size: 25px; background-color: #323030; color: white">Liste des enseignants</div>
+  <div class="card-body">
+ <table class="table table-bordered" id="dTable">
+    <thead>
+      <tr>
+        <th>CYCLE</th>
+        <th>SEMESTRE</th>
+        <th>UE</th>
+        <th>MODULE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for m in modules %}
+       <tr>
+        <td>{{m.libelle_cycle}}</td>
+        <td>{{m.libelle_semestre}}</td>
+        <td>{{m.libelle_ue}}</td>
+        <td>{{m.libelle_module}}</td>
+        <td>
+     <input type="checkbox" name="modules" form="faffecter" value="{{m.module}}">
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <input type="hidden" value="{{enseignant.id}}" form="faffecter" name="enseignant">
+  </div>
+
+</div>
+<br>
+ 
+    </div>
+<br>
+    
+  
+
+    </div>
+<div class="row">
+      <div class="col-sm-6">
+    <a href="/enseignant/list.php" class="btn btn-danger" style="align: left">Retour</a>
+      </div>
+      <div class="col-sm-6">
+        <input type="submit" class="btn btn-success" value="Valider" form="faffecter">
+      </div>
+   </div>
+
+</div>
+     
+{% endblock %} 
+
+{% block js %}
+<script>
+$(document).ready(function() {
+  $('#dTable').DataTable( {
+        "language": {
+            "url": "http://localhost:4000/dt/French.json"
+        }
+    } );
+} );
+</script>
+{% endblock %}

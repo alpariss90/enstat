@@ -1,22 +1,38 @@
 var express=require('express');
 const app=express();
+const cors=require('cors');
 const users=require('./src/routes/usersRoute');
 const enseignant=require('./src/routes/enseignantRoute');
+const etudiant=require('./src/routes/etudiantRoute');
 const authenticated=require('./src/routes/authenticatedRoute');
 const cycle=require('./src/routes/cycleRoute');
 const params=require('./src/routes/paramsRoute');
+const semestre=require('./src/routes/semestre');
+const etat=require('./src/routes/etat');
 const flash=require('connect-flash');
 const session=require('express-session');
 const cookieParser=require('cookie-parser');
 const bodyParser=require('body-parser');
+const enseignantService=require('./src/services/enseignantService');
 
 const port=process.env.PORT;
 
-
+var corsOptions = {
+    origin: 'http://localhost:4000',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Credentials', true);
+    next();
+});
 app.set('view engine', 'twig');
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors(corsOptions));
 //app.use('/bootstrap', express.static('./node_modules/bootstrap/'));
 app.set('views', './src/vues');
 app.use(cookieParser());
@@ -51,10 +67,15 @@ app.use(function(req, res, next){
     }
 });
 */
+
+
 app.use('/users', users);
 app.use('/enseignant', enseignant);
+app.use('/etudiant', etudiant);
 app.use('/cycle', cycle);
 app.use('/params', params);
+app.use('/semestre', semestre);
+app.use('/etat', etat);
 
 
 
@@ -63,8 +84,12 @@ app.get('/', (req, res)=>{
 });
 
 app.get('/index.php', function(req, res){
+
+    var moduleByCycle=enseignantService.getNbreModuleByCycle().rows;
+
     return res.render('accueil',{
-        message: "Bienvenue sur le systeme de gestion de ENSTAT"
+        message: "TABLEAU DE BORD",
+        nbreModuleByCycle: moduleByCycle
     })
 });
 

@@ -18,38 +18,51 @@
 {% endif %}
 
 <br>
-<h2>GESTION DES ENSEIGNANTS</h2>
+<h2>GESTION DES ETUDIANTS</h2>
 <br>
 <br>
  <div class="row">
     <div class="col-sm-4">
 <div class="card">
-  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Formulaire ajout enseignant</div>
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Formulaire ajout etudiant</div>
   <div class="card-body">
-<form method="post" action="/enseignant/save">
+<form method="post" action="/etudiant/save">
 
 
   <div class="mb-3">
    <label for="" class="form-label">Nom</label>
    <input type="text"
-     class="form-control form-control-lg" name="nom" id="nom"  placeholder="Entrer le nom de l'enseignant" autocomplete="off" required>
+     class="form-control form-control-lg" name="nom" id="nom"  placeholder="Entrer le nom de l'Etudiant" autocomplete="off" required>
  </div>
 
   <div class="mb-3">
    <label for="" class="form-label">Prenom</label>
    <input type="text"
-     class="form-control form-control-lg" name="prenom" id="prenom"  placeholder="Entrer le prenom de l'enseignant" autocomplete="off" required>
+     class="form-control form-control-lg" name="prenom" id="prenom"  placeholder="Entrer le prenom de l'etudiant" autocomplete="off" required>
  </div>
 
    <div class="mb-3">
    <label for="" class="form-label">Âge</label>
    <input type="number"
-     class="form-control form-control-lg" name="age" id="age"  placeholder="Entrer l'âge de l'enseignant" autocomplete="off" required>
+     class="form-control form-control-lg" name="age" id="age"  placeholder="Entrer l'âge de l'etudiant" autocomplete="off" required>
  </div>
+
+    <div class="mb-3">
+   <label for="" class="form-label">Téléphone</label>
+   <input type="number"
+     class="form-control form-control-lg" name="telephone" id="telephone"  placeholder="Entrer le telephone de l'etudiant" autocomplete="off" required>
+ </div>
+
+
   <div class="mb-3">
-   <label for="" class="form-label">Diplôme</label>
-   <input type="text"
-     class="form-control form-control-lg" name="diplome" id="diplome"  placeholder="Entrer le diplôme de l'enseignant" autocomplete="off" required>
+   <label for="" class="form-label">Cycle</label>
+   <select name="cycle" class="form-control form-control-lg" id="cycle" required>
+    <option value="">Selectionner un cycle</option>
+    <option value="1">Cycle Ingénieur des Pratiques Statistiques</option>
+    <option value="2">Micro</option>
+    <option value="3">Bureautique</option>
+   </select>
+   
  </div>
 
 <button type="reset" class="btn btn-danger">VIDER</button>
@@ -71,35 +84,33 @@
 
     <div class="col-sm-8">
 <div class="card">
-  <div class="card-header" style="font-size: 25px; background-color: #323030; color: white">Liste des enseignants</div>
+  <div class="card-header" style="font-size: 25px; background-color: #323030; color: white">Liste des etudiants</div>
   <div class="card-body">
  <table class="table table-bordered" id="dTable">
     <thead>
       <tr>
         <th>NOM & PRENOM</th>
-        <th>DIPLOME</th>
+        <th>Cycle</th>
         <th>AGE</th>
+        <th>Telephone</th>
         <th>ACTIONS</th>
       </tr>
     </thead>
     <tbody>
-        {% for p in enseignants %}
+        {% for p in etudiants %}
        <tr>
         <td>{{p.nom}} -- {{p.prenom}}</td>
-        <td>{{p.diplome}}</td>
+        <td>{{p.libelle_cycle}}</td>
         <td>{{p.age}} ans</td>
+        <td>{{p.telephone}}</td>
         <td>
-        <a href="/enseignant/form-edit.php/{{ p.id }}" class="btn btn-outline-success btn-md">
+        <a href="/etudiant/form-edit.php/{{ p.id }}" class="btn btn-outline-success btn-md">
           <i class="fa fa-edit"></i>
         </a>
-               <a href="/enseignant/affectation.php/{{ p.id }}" class="btn btn-outline-primary btn-md">
-          Affecter
+               <a href="#" class="btn btn-outline-primary btn-md">
+          Inscription
         </a>
 
-         <a href="/enseignant/list_enseigner.php/{{ p.id }}" class="btn btn-outline-primary btn-md">
-          Modules
-        </a>
-       
         </td>
       </tr>
     {% endfor %}

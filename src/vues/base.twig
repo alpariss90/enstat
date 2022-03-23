@@ -10,6 +10,11 @@
   <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   {% block css %}
   {% endblock css %}
+  <style>
+  .wh{
+    color: white
+  }
+  </style>
   </head>
 <body>
 
@@ -27,32 +32,36 @@
 </div>
   
 </div>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-sm" style="color: white; background-color: #323030">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">GESTION SCOLAIRE</a>
+    <a class="navbar-brand wh" href="/">GESTION SCOLAIRE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto">
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">PARAMS</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/params/annee.php">ANNEES</a></li>
-            <li><a class="dropdown-item" href="/users/list.php">UTILISATEURS</a></li>
-            <li><a class="dropdown-item" href="/enseignant/list.php">ENSEIGNANTS</a></li>
-            <li><a class="dropdown-item" href="#">ETUDIANTS</a></li>
+      <ul class="navbar-nav me-auto" >
+      <li class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle wh"  href="#" role="button" data-bs-toggle="dropdown">PARAMS</a>
+          <ul class="dropdown-menu" style="background-color: #323030">
+            <li><a class="dropdown-item wh" href="/params/annee.php">ANNEES</a></li>
+            <li><a class="dropdown-item wh"  href="/users/list.php">UTILISATEURS</a></li>
+            <li><a class="dropdown-item wh" href="/enseignant/list.php">ENSEIGNANTS</a></li>
+            <li><a class="dropdown-item wh" href="/etudiant/list.php">ETUDIANTS</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/cycle/list.php">CYCLES</a></li>
+          <a class="nav-link wh" href="/cycle/list.php">CYCLES</a></li>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link wh" href="/etat/list.php">ETATS</a></li>
         </li>
     
 
       </ul>
       <form class="d-flex">
-        <a class="btn btn-link" href="/logout.php">DECONNEXION</a>
+        <a class="btn btn-link wh" href="/logout.php">DECONNEXION</a>
       </form>
       
      <!-- <ul>
@@ -75,8 +84,13 @@
 
 
 </div>
-  
-<div class="container">
+  <div class="row">
+  <div class="col-sm-11 offset-sm-1">
+    
+  </div>
+
+  </div>
+<div class="container-fluid">
 
 {% block content %}
 

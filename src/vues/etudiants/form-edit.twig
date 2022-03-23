@@ -1,0 +1,76 @@
+{% extends 'base.twig' %}
+
+{% block title %} Liste {% endblock  %}
+
+{% block content %} 
+
+
+<br>
+<h2>GESTION DES ETUDIANTS</h2>
+<br>
+<br>
+
+
+<div class="alert alert-success">
+  <strong> Modification de l'etudiant : {{ etudiant.nom }}--{{ etudiant.prenom }}</strong> 
+</div>
+
+
+ <div class="row">
+    <div class="col-sm-5">
+<div class="card">
+  <div class="card-header" style="font-size: 25px; background-color: #FF9200">Modification etudiant</div>
+  <div class="card-body">
+<form method="post" action="/etudiant/edit">
+ 
+  <div class="mb-3">
+   <label for="" class="form-label">Nom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="nom" id="nom"  value="{{etudiant.nom}}" autocomplete="off" required>
+ </div>
+<input type="hidden" name="id" value="{{etudiant.id}}" >
+  <div class="mb-3">
+   <label for="" class="form-label">Prenom</label>
+   <input type="text"
+     class="form-control form-control-lg" name="prenom" id="prenom"  value="{{etudiant.prenom}}" autocomplete="off" required>
+ </div>
+
+   <div class="mb-3">
+   <label for="" class="form-label">Âge</label>
+   <input type="number"
+     class="form-control form-control-lg" name="age" id="age"  value="{{etudiant.age}}" autocomplete="off" required>
+ </div>
+  <div class="mb-3">
+   <label for="" class="form-label">Telephone</label>
+   <input type="text"
+     class="form-control form-control-lg" name="telephone" id="telephone"  value="{{etudiant.telephone}}" autocomplete="off" required>
+ </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Cycle</label>
+   <select name="cycle" class="form-control form-control-lg" id="cycle" required>
+    <option value="1" {% if etudiant.cycle==1 %} selected {% endif %} >Cycle Ingénieur des Pratiques Statistiques</option>
+    <option value="2" {% if etudiant.cycle==2 %} selected {% endif %} >Micro</option>
+    <option value="3" {% if etudiant.cycle==3 %} selected {% endif %} >Bureautique</option>
+   </select>
+   
+ </div>
+
+
+<a href="/etudiant/list.php" class="btn btn-danger">RETOUR</a>
+<button type="submit" class="btn btn-primary" style="float: right">MODIFIER</button>
+
+
+</form>
+  </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+    
+{% endblock %} 

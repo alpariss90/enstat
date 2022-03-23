@@ -1,7 +1,9 @@
 {% extends 'base.twig' %}
 
 {% block title %} Liste {% endblock  %}
+{% block css %}
 
+{% endblock %}
 {% block content %} 
 <div class="alert alert-success">
   <strong>{{ message }}</strong> 
@@ -9,8 +11,82 @@
 
 <div class='row'>
 
+  <div class="col-sm-3">
+  <div class="card">
+  <div class="card-header" style="background-color: #323030; color: white">Nombre modules par cycle</div>
+    <div class="card-body" >
+            <canvas id="myChart" ></canvas>
+    </div>
+  </div>
+  </div>
 
+
+<div>
+  
     
-</div>
-    
+
+
 {% endblock %} 
+
+{% block js %}
+<script src="/dt/js/chart.js"></script>
+  <script>
+  $(document).ready(function() {
+
+    var nbreModuleCycle={{nbreModuleByCycle| json_encode}};
+    /*
+  const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+  ];
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+    }]
+  };
+*/
+
+const data = {
+  labels: [
+    'IPS',
+    'MICRO',
+    'BUREAUTIQUE'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [nbreModuleCycle[1].nbre, nbreModuleCycle[2].nbre, nbreModuleCycle[0].nbre],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 1
+  }]
+};
+  const config = {
+  type: 'pie',
+  data: data,
+  options: {
+    responsive: true,
+    maintainAspectRatio: false
+  }
+};
+
+    const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+  });
+</script>
+
+
+{% endblock %}
