@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "electron index.js --disable-gpu --disable-software-rasterizer .",
+    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -38,5 +40,9 @@
       "PGPASSWORD": "pass",
       "PGDATABASE": "enstat"
     }
+  },
+  "devDependencies": {
+    "electron": "^17.2.0",
+    "electron-packager": "^15.4.0"
   }
 }

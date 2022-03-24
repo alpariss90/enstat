@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title> Liste des enseignants </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/logo.jpg" type="image/x-icon">
+   <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/dt/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+<body>
+
+<div class="container-fluid">
+<div style="text-align: center">
+<h2>Liste des enseignants</h2>
+</div>
+
+<table class="table table-bordered" width="100%" border="1">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Telephone</th>
+        <th>Diplome</th>
+        <th>AGE</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for p in ens %}
+       <tr>
+        <td>{{p.nom}}</td>
+        <td>{{p.prenom}}</td>
+        <td>{{p.telephone}}</td>
+        <td>{{p.diplome}}</td>
+        <td>{{p.age}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<script src="/dt/js/jquery.js"></script>
+<script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/dt/js/jquery.dataTables.min.js"></script>
+<script src="/dt/js/dataTables.bootstrap5.min.js"></script>
+
+
+</body>
+</html>

@@ -46,6 +46,14 @@
    <input type="number"
      class="form-control form-control-lg" name="age" id="age"  placeholder="Entrer l'âge de l'enseignant" autocomplete="off" required>
  </div>
+
+  <div class="mb-3">
+   <label for="" class="form-label">Téléphone</label>
+   <input type="number"
+     class="form-control form-control-lg" name="telephone" id="telephone"  placeholder="Entrer le telephone de l'enseignant" autocomplete="off" required>
+ </div>
+
+
   <div class="mb-3">
    <label for="" class="form-label">Diplôme</label>
    <input type="text"
@@ -78,6 +86,7 @@
       <tr>
         <th>NOM & PRENOM</th>
         <th>DIPLOME</th>
+        <th>TELEPHONE</th>
         <th>AGE</th>
         <th>ACTIONS</th>
       </tr>
@@ -87,6 +96,7 @@
        <tr>
         <td>{{p.nom}} -- {{p.prenom}}</td>
         <td>{{p.diplome}}</td>
+        <td>{{p.telephone}}</td>
         <td>{{p.age}} ans</td>
         <td>
         <a href="/enseignant/form-edit.php/{{ p.id }}" class="btn btn-outline-success btn-md">

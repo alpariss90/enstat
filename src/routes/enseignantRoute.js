@@ -14,14 +14,14 @@ router.get('/list.php', (req, res)=>{
 });
 
 router.post('/save', function(req, res){
-    const {nom,prenom,age,diplome}=req.body;
+    const {nom,prenom,age,diplome, telephone}=req.body;
 
     if(enseignantService.isEnseignantExist(nom,prenom,age)> 0){
         req.flash('error', "Enseignatn "+nom+" "+prenom+" "+age+"+ existe déja");
         return res.redirect('/enseignant/list.php')
     }
 
-    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome,0);
+    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome,0, telephone);
 
     enseignant.who_done="test"//req.session.user.login;
     enseignant.when_done=new Date();
@@ -38,10 +38,10 @@ router.post('/save', function(req, res){
 });
 
 router.post('/edit', function(req, res){
-    const {nom,prenom,age,diplome,id}=req.body;
+    const {nom,prenom,age,diplome,id, telephone}=req.body;
 
     
-    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome,id);
+    var enseignant=enseignantService.mapEnseignant(nom,prenom,age,diplome,id, telephone);
 
    
     enseignant.who_done="test"//req.session.user.login;

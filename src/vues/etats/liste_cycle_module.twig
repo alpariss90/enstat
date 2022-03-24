@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title> Liste des enseignants </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/img/logo.jpg" type="image/x-icon">
+   <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/dt/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+<body>
+
+<div class="container-fluid">
+<div style="text-align: center">
+<h2>Liste des modules par cycle</h2>
+</div>
+
+
+{% for c in cs %}
+<div style="text-align: left; color: green"><h3>{{c.libelle}}</h3></div>
+<table class="table table-bordered" width="100%" border="1">
+    <thead>
+      <tr>
+        <th>SEMESTRE</th>
+        <th>UE</th>
+        <th>MODULE</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for cm in cms %}
+      {% if cm.libelle_cycle==c.libelle %}
+       <tr>
+        <td>{{cm.libelle_semestre}}</td>
+        <td>{{cm.libelle_ue}}</td>
+        <td>{{cm.libelle_module}}</td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+     </tbody>
+  </table>
+{% endfor %}
+   
+</div>
+
+
+<script src="/dt/js/jquery.js"></script>
+<script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/dt/js/jquery.dataTables.min.js"></script>
+<script src="/dt/js/dataTables.bootstrap5.min.js"></script>
+
+
+</body>
+</html>

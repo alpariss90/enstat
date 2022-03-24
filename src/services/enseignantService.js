@@ -60,8 +60,8 @@ module.exports={
     add: function(enseignant){
         ret=null;
             pool.query(
-            "insert into enseignant ( nom, prenom, age, diplome, who_done, when_done) values ($1,$2,$3,$4,$5,$6)",
-            [enseignant.nom, enseignant.prenom, enseignant.age, enseignant.diplome, enseignant.who_done, enseignant.when_done],
+            "insert into enseignant (telephone, nom, prenom, age, diplome, who_done, when_done) values ($1,$2,$3,$4,$5,$6)",
+            [enseignant.telephone, enseignant.nom, enseignant.prenom, enseignant.age, enseignant.diplome, enseignant.who_done, enseignant.when_done],
             function(err, rs){
                 ret={err: err, result: 'Ajout enseignant '+enseignant.nom+' faite avec success'};         
             });
@@ -73,8 +73,8 @@ module.exports={
         ret=null;
        
             pool.query(
-            "update enseignant set nom=$1, prenom=$2, age=$3, diplome=$4, who_done=$5, when_done=$6 where id=$7",
-            [ enseignant.nom, enseignant.prenom, enseignant.age, enseignant.diplome, enseignant.who_done, enseignant.when_done, enseignant.id],
+            "update enseignant set nom=$1, prenom=$2, age=$3, diplome=$4, who_done=$5, when_done=$6, telephone=$8 where id=$7",
+            [ enseignant.nom, enseignant.prenom, enseignant.age, enseignant.diplome, enseignant.who_done, enseignant.when_done, enseignant.id, enseignant.telephone],
             function(err, rs){
                 ret={err: err, result: 'Modification enseignant '+enseignant.nom+' faite avec success'};         
             });
@@ -94,13 +94,14 @@ module.exports={
              deasync.runLoopOnce()
     return ret;
     },
-    mapEnseignant : function(nom, prenom, age, diplome, id){
+    mapEnseignant : function(nom, prenom, age, diplome, id, telephone){
         var enseignant={
             nom: nom,
             prenom: prenom,
             age: age,
             diplome: diplome,
-            id: id
+            id: id,
+            telephone: telephone
         }
         return enseignant;
     },

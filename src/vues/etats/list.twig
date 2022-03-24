@@ -13,25 +13,13 @@
 
 <div class="col-sm-3">
   <div class="d-grid gap-3">
-  <button type="button" class="btn btn-success btn-block">Liste des modules par cycles</button>
+  <button type="button" class="btn btn-success btn-block li-modale" imprimeLink="/etat/imprime/liste-cycle-module" lien="/etat/liste-cycle-module" title="Liste des enseignants">Liste des modules par cycles</button>
   </div>
 </div>
 
 <div class="col-sm-3">
   <div class="d-grid gap-3">
-  <button type="button" class="btn btn-success btn-block">Liste des modules par UE</button>
-  </div>
-</div>
-
-<div class="col-sm-3">
-  <div class="d-grid gap-3">
-  <button type="button" class="btn btn-success btn-block">Liste des UE par semestre</button>
-  </div>
-</div>
-
-<div class="col-sm-3">
-  <div class="d-grid gap-3">
-  <a class="btn btn-success btn-block li-modale" href="/etat/list.php">Liste des enseignants</a>
+  <a class="btn btn-success btn-block li-modale" imprimeLink="/etat/imprime/list-enseignant" lien="/etat/liste-enseignant" title="Liste des enseignants">Liste des enseignants</a>
   </div>
 </div>
 
@@ -39,50 +27,19 @@
   
 
 
-<!--
-<div id="demo-modal-target">
-    <div class="demo-title">Bootstrap Dynamic Modal Window</div>
-    <div onclick="loadDynamicContentModal('bootstrap')"
-        class="btn-modal-target" id="btn-bootstrap">Bootstrap</div>
-    <div onclick="loadDynamicContentModal('jquery')"
-        class="btn-modal-target" id="btn-jquery">jQuery</div>
-    <div onclick="loadDynamicContentModal('responsive')"
-        class="btn-modal-target" id="btn-responsive">Responsive</div>
-</div>
--->
-<div class="modal fade" id="bootstrap-modal" role="dialog">
-
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">Bootstrap Dynamic Modal
-                    Content</h4>
-            </div>
-            <div id="demo-modal"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                    data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-  Open modal
-</button>
 
 <!-- The Modal -->
-<div class="modal" id="myModal"  role="dialog" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog">
+<div class="modal  fade" id="myModal"  role="dialog" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
+      <div class="modal-header bg-success">
         <h4 class="modal-title">Modal Heading</h4>
+        <input type="hidden" id="linkImp" value="">
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
@@ -92,8 +49,12 @@
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      <div class="modal-footerr">
+      
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">FERMER</button>
+<button type="submit" class="btn btn-primary imprimer" style="float: right">IMPRIMER</button>
+
+                
       </div>
 
     </div>
@@ -113,8 +74,19 @@
   $(document).ready(function() {
     $('.li-modale').on('click', function(e){
         e.preventDefault();
-	      $('#myModal').modal('show').find('.modal-content').load($(this).attr('href'));
+        $('.modal-title').text($(this).attr('title'));
+        $('#linkImp').val($(this).attr('imprimeLink'));
+	      $('#myModal').modal('show').find('.modal-body').load($(this).attr('lien'));
 	    });
+
+      $('.imprimer').on('click', function(e){
+        //loc=window.location.href+"/"+lib;
+  //window.location.assign($('#linkImp').val(), '_blank')
+          //alert();
+          window.open($('#linkImp').val(), '_blank');
+	    });
+
+
   });
 </script>
 {% endblock %}
